@@ -1,0 +1,78 @@
+<div class="form">
+        <div class="form-toggle"></div>
+        <div class="form-panel one">
+            <div class="form-header">
+                <h1>Account Login</h1>
+            </div>
+            <div class="form-content">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required="required"/>
+                        <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
+                    </div>
+                    <div class="form-group">
+                        <a class="form-recovery" href="#">Forgot Password?</a>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Log In</button>
+                    </div>
+                </form>
+                <div class="form-group">
+                    <button id="switch-to-register">Create Account</button>
+                </div>
+            </div>
+        </div>
+        <div class="form-panel two">
+            <div class="form-header">
+                <h1>Register Account</h1>
+                <button id="switch-to-login" class="back-to-login">Back to Login</button>
+            </div>
+            <div class="form-content">
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-username">Username</label>
+                        <input type="text" id="register-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">PASSWORD
+                            <span class="password-hint-trigger">
+                                <span class="hint-icon">?</span>
+                                <div class="password-hint">
+                                    <div class="hint-header">Password Requirements:</div>
+                                    <ul class="hint-list">
+                                        <li>• Minimum 8 characters</li>
+                                        <li>• At least one uppercase letter (A-Z)</li>
+                                        <li>• At least one lowercase letter (a-z)</li>
+                                        <li>• At least one special character (!@#$%^&*)</li>
+                                        <li>• No simple sequences (abc, 123, etc.)</li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </label>
+                        <input type="password" id="register-password" name="password" required>
+                        <span class="toggle-password register-toggle" onclick="togglePassword('register-password', this)">👁️</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-cpassword">Confirm Password</label>
+                        <input type="password" id="register-cpassword" name="cpassword" required>
+                        <span class="toggle-password register-c-toggle" onclick="togglePassword('register-cpassword', this)">👁️</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email Address</label>
+                        <input type="email" id="register-email" name="email" required>
+                    </div>
+                    <div id="register-error" class="error-message" style="color: red; display: none;">
+                        Ошибка при регистрации.
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

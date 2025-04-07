@@ -1,0 +1,1280 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #faf8ef;
+    color: #776e65;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden !important;
+}
+
+#toggle-sound, #toggle-music {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    background-color: #bbada0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #eee4da;
+    font-family: monospace;
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+}
+
+#toggle-music{
+    top: 70px; /* Отступ сверху для кнопки музыки */
+}
+
+/* Главное меню */
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center; /* Центрирование содержимого */
+    justify-content: center; /* Центрирование содержимого */
+    height: 100vh; /* Занимаем всю высоту экрана */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.main-menu h1 {
+    font-size: 80px;
+    margin: 0;
+    color: #776e65;
+}
+
+.main-menu button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #8f7a66;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+    width: 100%; /* Занимаем всю ширину кнопки */
+}
+
+.main-menu button:hover {
+    background-color: #9c8b77;
+}
+
+/* Игровой интерфейс */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.timer {
+    background-color: #bbada0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.timer span {
+    display: block;
+    color: #eee4da;
+    font-size: 14px;
+}
+
+#time {
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+    font-family: monospace; /* Моноширинный шрифт */
+}
+
+.container.hidden {
+    display: none;
+}
+
+h1 {
+    font-size: 80px;
+    margin: 0;
+    color: #776e65;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+
+#menu-button, #restart {
+    padding: 10px 20px;
+    white-space: nowrap;
+    font-size: 18px;
+    background-color: #8f7a66;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+#menu-button:hover, #restart:hover {
+    background-color: #9c8b77;
+}
+
+.score-container {
+    display: contents;
+    justify-content: center;
+    gap: 20px;
+}
+
+.score, .best {
+    background-color: #bbada0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.score span, .best span {
+    display: block;
+    color: #eee4da;
+    font-size: 14px;
+}
+
+#score, #best {
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+.game-container {
+    display: flex; /* Используем flex для расположения в одной строке */
+    gap: 20px; /* Расстояние между сеткой и блоком Block Times */
+    align-items: flex-start;
+    position: relative; /* Для псевдоэлемента */
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 10px;
+    margin: 0 auto;
+}
+
+.grid-container {
+    background-color: #bbada0;
+    padding: 10px;
+    border-radius: 10px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.grid div {
+    background-color: #cdc1b4;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: #776e65;
+}
+
+
+.instructions {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #776e65;
+    width: fit-content;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Модальное окно */
+.modal {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: #faf8ef;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.modal:not(.hidden) .modal-content {
+    transform: translateY(0);
+}
+
+@media (max-width: 500px) {
+    .modal-content {
+        width: 90%;
+        padding: 10px;
+    }
+}
+
+/* Форма регистрации и входа */
+/* Основные стили для формы */
+.form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    background: #FFFFFF;
+    width: 600px;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Стили для панелей */
+.form-panel {
+    padding: 60px calc(10% + 60px) 60px 60px;
+    box-sizing: border-box;
+    position: relative;
+    transition: 0.3s ease;
+}
+
+.form-panel.one {
+    z-index: 2;
+}
+
+.form-panel.two {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background: #9c8b77;
+    width: 100%;
+    min-height: 520px;
+    padding: 60px calc(10% + 60px) 60px 60px;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.form-panel.two.active {
+    left: 0;
+    z-index: 3;
+    cursor: default;
+}
+
+/* Стили для заголовков */
+.form-header {
+    margin: 0 0 40px;
+}
+
+.form-header h1 {
+    padding: 4px 0;
+    color: #9c8b77;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: calc(100% - 150px);
+}
+
+.two .form-header h1 {
+    position: relative;
+    z-index: 40;
+    color: #FFFFFF;
+}
+
+/* Стили для групп полей */
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0 20px;
+}
+
+.form-group:last-child {
+    margin: 0;
+}
+
+.form-group label {
+    display: block;
+    margin: 0 0 10px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+}
+
+.two .form-group label {
+    color: #FFFFFF;
+}
+
+.form-group input {
+    outline: none;
+    display: block;
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    transition: 0.3s ease;
+}
+
+.form-group input:focus {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.two .form-group input {
+    color: #FFFFFF;
+}
+
+.two .form-group input:focus {
+    color: #FFFFFF;
+}
+
+.form-group button {
+    outline: none;
+    background: #9c8b77;
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    padding: 12px 20px;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.two .form-group button {
+    background: #FFFFFF;
+    color: #9c8b77;
+}
+
+/* Стили для кнопки переключения */
+#switch-to-register {
+    background: #9c8b77;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#switch-to-register:hover {
+    background: #9c8b77;
+}
+
+/* Скрытие и отображение панелей */
+.hidden {
+    display: none;
+}
+
+.back-to-login {
+    position: absolute;
+    top: 58px; /* Высота, равная заголовку */
+    right: 118px; /* Отступ справа */
+    border: 2px solid #9c8b77; /* Граница, как у кнопки Register */
+    color: #9c8b77; /* Цвет текста, как у заголовка */
+    font-size: 14px;
+    cursor: pointer;
+    padding: 10px 20px; /* Отступы, как у кнопки Register */
+    border-radius: 4px; /* Скругление углов, как у кнопки Register */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Блок Block Times */
+.block-times {
+    background-color: #bbada0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 200px; /* Ширина блока */
+    box-sizing: border-box;
+    position: fixed;
+    right: 100px;
+    display: block;
+}
+
+.block-times h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: #eee4da;
+}
+
+#block-times-list {
+    max-height: 300px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: white;
+    font-family: monospace; /* Моноширинный шрифт для времени */
+}
+
+#block-times-list div {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee4da;
+    color: white;
+    font-family: monospace;
+}
+/* Стили для блока лучших результатов */
+/* Обновленные стили для Best Results */
+.best-results-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.best-results-modal:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.best-results-modal .modal-content {
+    background-color: #f8f1e9;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.best-results-modal h2 {
+    color: #776e65;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.best-results-tabs {
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #bbada0;
+}
+
+.best-results-tab {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #776e65;
+    transition: all 0.3s;
+}
+
+.best-results-tab.active {
+    color: #f65e3b;
+    border-bottom: 3px solid #f65e3b;
+    font-weight: bold;
+}
+
+.best-results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    table-layout: fixed;
+    font-size: 16px;
+}
+
+.best-results-table th, 
+.best-results-table td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #eee4da;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.best-results-table th {
+    background-color: #bbada0;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.best-results-table tr:nth-child(even) {
+    background-color: #faf8ef;
+}
+
+.best-results-table tr:hover {
+    background-color: #eee4da;
+}
+
+.best-results-table tr.current-user {
+    background-color: #edc22e;
+    color: white;
+    font-weight: bold;
+}
+
+.best-results-table .score-value {
+    font-weight: bold;
+    color: #f65e3b;
+}
+
+.best-results-table .time-value {
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.best-results-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 15px;
+}
+
+.best-results-pagination button {
+    background: #8f7a66;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.best-results-pagination button:disabled {
+    background: #bbada0;
+    color: #eee4da;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.best-results-pagination button:disabled:hover {
+    background: #bbada0;
+    transform: none;
+}
+
+.best-results-pagination button:hover {
+    transform: translateY(-2px);
+}
+
+.best-results-close {
+    background: #f65e3b;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.best-results-close:hover {
+    background: #f77c5f;
+    transform: translateY(-2px);
+}
+
+/* Стили для блоков в Best Results */
+.best-block-times {
+    margin-top: 15px;
+}
+
+.best-block-time-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #faf8ef;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    align-items: center;
+}
+
+.best-block-time-label {
+    font-weight: bold;
+    color: #776e65;
+}
+
+.best-block-time-value {
+    font-family: monospace;
+    font-weight: bold;
+    color: #8f7a66;
+}
+
+/* Адаптивные стили */
+@media (max-width: 600px) {
+    .best-results-modal .modal-content {
+        padding: 15px;
+    }
+    
+    .best-results-tab {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+    
+    .best-results-table th,
+    .best-results-table td {
+        padding: 8px 4px;
+        font-size: 14px;
+    }
+}
+
+/* Стили для таблицы рейтинга */
+#rating-list {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.rating-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #eee4da;
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+
+.rating-position {
+    font-weight: bold;
+    color: #776e65;
+}
+
+.rating-username {
+    flex-grow: 1;
+    text-align: left;
+    padding: 0 15px;
+}
+
+.rating-score {
+    font-weight: bold;
+    color: #f65e3b;
+}
+
+/* Стили для расширенного рейтинга */
+.rating-tabs {
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #bbada0;
+}
+
+.rating-tab {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #776e65;
+    transition: all 0.3s;
+}
+
+.rating-tab.active {
+    color: #f65e3b;
+    border-bottom: 3px solid #f65e3b;
+    font-weight: bold;
+}
+
+.rating-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.rating-table th {
+    background-color: #bbada0;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+.rating-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee4da;
+}
+
+.rating-table tr:nth-child(even) {
+    background-color: #faf8ef;
+}
+
+.rating-table tr.current-user {
+    background-color: #edc22e;
+    color: white;
+    font-weight: bold;
+}
+
+.rating-table tr.medal-1 td:first-child::before {
+    content: "🥇";
+    margin-right: 5px;
+}
+
+.rating-table tr.medal-2 td:first-child::before {
+    content: "🥈";
+    margin-right: 5px;
+}
+
+.rating-table tr.medal-3 td:first-child::before {
+    content: "🥉";
+    margin-right: 5px;
+}
+
+.rating-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 15px;
+}
+
+.rating-pagination button {
+    background: #8f7a66;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.rating-pagination button:disabled {
+    background: #bbada0;
+    color: #eee4da;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none !important;
+}
+
+.rating-pagination button:disabled:hover {
+    background: #bbada0;
+}
+
+.modal-close-btn {
+    background: #f65e3b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Стили для индикатора загрузки */
+.loading-spinner {
+    text-align: center;
+    padding: 30px;
+    font-size: 24px;
+    color: #776e65;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); opacity: 1; }
+    50% { transform: rotate(180deg); opacity: 0.7; }
+    100% { transform: rotate(360deg); opacity: 1; }
+}
+
+.loading-spinner::after {
+    content: "";
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    margin: 20px auto;
+    border: 6px solid #bbada0;
+    border-top-color: #f65e3b;
+    border-bottom-color: #f65e3b;
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite;
+}
+
+.rating-table tr {
+    transition: all 0.2s ease;
+}
+.rating-table tr:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 600px) {
+    .rating-table td, .rating-table th {
+        padding: 8px 5px;
+        font-size: 14px;
+    }
+    .modal-content {
+        width: 95% !important;
+    }
+}
+
+/* Пароль */
+
+.password-hint-trigger {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.hint-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border: 1px solid #bbada0;
+    border-radius: 50%;
+    color: #776e65;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    cursor: help;
+    transition: all 0.2s ease;
+}
+
+.password-hint-trigger:hover .hint-icon {
+    background: #f8f1e9;
+    border-color: #8f7a66;
+}
+
+.password-hint {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%);
+    width: 200px;
+    max-height: 150px;
+    padding: 10px;
+    background: #faf8ef;
+    border: 1px solid #bbada0;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    font-size: 11px;
+    line-height: 1.5;
+    color: #776e65;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    overflow-y: auto; /* На случай длинного списка */
+    white-space: normal;
+}
+
+.password-hint-trigger:hover .password-hint {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+.password-hint:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: #faf8ef transparent transparent transparent;
+}
+
+.hint-header {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #8f7a66;
+    font-size: 13px;
+}
+
+.hint-list {
+    padding-left: 15px;
+    margin: 10px 0 0;
+}
+
+.hint-list li {
+    margin-bottom: 5px;
+}
+
+.error-message {
+    color: #f65e3b;
+    font-size: 16px;
+    margin-top: 5px;
+    display: none;
+}
+
+.password-container {
+    position: relative;
+    width: 200px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 130px;
+    top: 51%;
+    cursor: pointer;
+}
+
+.register-toggle { /* 45 40 */
+    position: absolute;
+    top: 260px;
+}
+
+.register-c-toggle {
+    position: absolute;
+    top: 345px;
+}
+
+button {
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: scale(0.95); /* Уменьшение кнопки при наведении */
+}
+
+/* Анимация появления новых плиток */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.new-tile {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Анимация слияния плиток */
+@keyframes mergeAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.merging {
+    animation: mergeAnimation 0.2s ease-in-out;
+}
+
+/* Обновленные стили для таблицы рейтинга */
+.rating-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    table-layout: fixed; /* Фиксированная ширина колонок */
+    font-size: 16px;
+}
+
+.rating-table th, 
+.rating-table td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #eee4da;
+    text-align: center; /* Центрирование текста по горизонтали */
+    vertical-align: middle; /* Центрирование по вертикали */
+}
+
+/* Ширина колонок */
+.rating-table th:nth-child(1),
+.rating-table td:nth-child(1) {
+    width: 15%; /* Rank */
+}
+
+.rating-table th:nth-child(2),
+.rating-table td:nth-child(2) {
+    width: 35%; /* Player */
+}
+
+.rating-table th:nth-child(3),
+.rating-table td:nth-child(3) {
+    width: 30%; /* Score/Time */
+}
+
+/* Для вкладки Block Times */
+.rating-table th:nth-child(4),
+.rating-table td:nth-child(4) {
+    width: 20%; /* Time (только для Block Times) */
+}
+
+/* Стили для заголовков */
+.rating-table th {
+    background-color: #bbada0;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Стили для строк */
+.rating-table tr:nth-child(even) {
+    background-color: #faf8ef;
+}
+
+.rating-table tr:hover {
+    background-color: #eee4da;
+}
+
+.loading-text {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #776e65;
+    font-weight: bold;
+}
+
+.loading-progress {
+    font-size: 16px;
+    color: #8f7a66;
+    margin-top: 15px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.game-over-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.game-over-modal .modal-content {
+    background-color: #f8f1e9;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.game-over-modal h2 {
+    color: #776e65;
+    margin-bottom: 15px;
+    font-size: 28px;
+}
+
+.game-over-modal p {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #776e65;
+}
+
+.block-times-summary {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.block-times-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.block-times-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid #e0d6c2;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.modal-buttons button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    background-color: #8f7a66;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.modal-buttons button:hover {
+    background-color: #9f8b77;
+    transform: translateY(-2px);
+}
+
+/* Специфичные стили для вкладки Block Times */
+.blocks-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.blocks-table th, 
+.blocks-table td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #eee4da;
+    text-align: center;
+}
+
+.blocks-table th {
+    background-color: #bbada0;
+    color: white;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+}
+
+.blocks-table tr:nth-child(even) {
+    background-color: #faf8ef;
+}
+
+.blocks-table tr:hover {
+    background-color: #eee4da;
+}
+
+.blocks-table .block-value {
+    font-weight: bold;
+    color: #776e65;
+}
+
+.blocks-table .block-time {
+    font-family: monospace;
+    color: black;
+}
+
+.blocks-table .player-name {
+    text-align: left;
+    padding-left: 15px;
+}
+
+/* Цвета для разных блоков */
+.blocks-table .block-8 { background-color: #f2b17920; }
+.blocks-table .block-16 { background-color: #f5956320; }
+.blocks-table .block-32 { background-color: #f67c5f20; }
+.blocks-table .block-64 { background-color: #f65e3b20; }
+.blocks-table .block-128 { background-color: #edcf7220; }
+.blocks-table .block-256 { background-color: #edcc6120; }
+.blocks-table .block-512 { background-color: #edc85020; }
+.blocks-table .block-1024 { background-color: #edc53f20; }
+.blocks-table .block-2048 { background-color: #edc22e20; }
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+    .blocks-table th, 
+    .blocks-table td {
+        padding: 8px 4px;
+        font-size: 14px;
+    }
+    
+    .blocks-table .player-name {
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.block-selector {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.block-selector label {
+    font-weight: bold;
+    color: #776e65;
+}
+
+.block-selector select {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #bbada0;
+    background-color: #faf8ef;
+    color: #776e65;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.block-selector select:hover {
+    border-color: #8f7a66;
+}
+
+.block-selector select:focus {
+    outline: none;
+    border-color: #f65e3b;
+    box-shadow: 0 0 0 2px rgba(246, 94, 59, 0.2);
+}
+

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<audio id="click-sound" src="sounds/button-click.mp3" preload="auto"></audio>
+<audio id="move-sound" src="sounds/tile-move.mp3" preload="auto"></audio>
+<audio id="menu-music" src="sounds/menu-music.mp3" loop preload="auto"></audio>
+<audio id="game-music" src="sounds/game-music.mp3" loop preload="auto"></audio>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 Game</title>
+    <link id="dynamic-style" rel="stylesheet" href="style1.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Форма регистрации и входа -->
+    <div class="form">
+        <div class="form-toggle"></div>
+        <div class="form-panel one">
+            <div class="form-header">
+                <h1>Account Login</h1>
+            </div>
+            <div class="form-content">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required="required"/>
+                        <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
+                    </div>
+                    <div class="form-group">
+                        <a class="form-recovery" href="#">Forgot Password?</a>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Log In</button>
+                    </div>
+                </form>
+                <div class="form-group">
+                    <button id="switch-to-register">Create Account</button>
+                </div>
+            </div>
+        </div>
+        <div class="form-panel two">
+            <div class="form-header">
+                <h1>Register Account</h1>
+                <button id="switch-to-login" class="back-to-login">Back to Login</button>
+            </div>
+            <div class="form-content">
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-username">Username</label>
+                        <input type="text" id="register-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">PASSWORD
+                            <span class="password-hint-trigger">
+                                <span class="hint-icon">?</span>
+                                <div class="password-hint">
+                                    <div class="hint-header">Password Requirements:</div>
+                                    <ul class="hint-list">
+                                        <li>• Minimum 8 characters</li>
+                                        <li>• At least one uppercase letter (A-Z)</li>
+                                        <li>• At least one lowercase letter (a-z)</li>
+                                        <li>• At least one special character (!@#$%^&*)</li>
+                                        <li>• No simple sequences (abc, 123, etc.)</li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </label>
+                        <input type="password" id="register-password" name="password" required>
+                        <span class="toggle-password register-toggle" onclick="togglePassword('register-password', this)">👁️</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-cpassword">Confirm Password</label>
+                        <input type="password" id="register-cpassword" name="cpassword" required>
+                        <span class="toggle-password register-c-toggle" onclick="togglePassword('register-cpassword', this)">👁️</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email Address</label>
+                        <input type="email" id="register-email" name="email" required>
+                    </div>
+                    <div id="register-error" class="error-message" style="color: red; display: none;">
+                        Ошибка при регистрации.
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <button id="toggle-sound">Sound On</button>
+    <button id="toggle-music">Music On</button>
+    
+    <!-- Главное меню (изначально скрыто) -->
+    <div id="main-menu" class="main-menu hidden">
+        <h1>2048</h1>
+        <div id="menu-buttons">
+            <button id="play-button">Classic</button>
+            <button id="speedrun-button">Speedrun</button>
+            <button id="best-results-button">Best Results</button>
+            <button id="toggle-style-button">Сhange style</button>
+            <button id="rating-button">Rating</button> <!-- Новая кнопка -->
+            <button id="logout-button">Logout</button> <!-- Кнопка выхода -->
+            <div id="volume-controls">
+        <label for="music-volume">Music Volume</label>
+        <input type="range" id="music-volume" min="0" max="1" step="0.01" value="1">
+
+        <label for="sound-volume">Sound Volume</label>
+        <input type="range" id="sound-volume" min="0" max="1" step="0.01" value="1">
+    </div>
+        </div>
+    </div>
+
+    <!-- Игровой интерфейс (изначально скрыт) -->
+    <!-- Игровой интерфейс -->
+<div id="game-interface" class="container hidden">
+    <h1>2048</h1>
+    <div class="controls">
+        <button id="menu-button">Menu</button>
+        <button id="restart">Restart</button>
+        <div class="score-container">
+            <div class="score">
+                <span>Score</span>
+                <span id="score">0</span>
+            </div>
+            <div class="best">
+                <span>Best</span>
+                <span id="best">0</span>
+            </div>
+        </div>
+        <div id="timer" class="timer hidden">
+            <span>Time:</span>
+            <span id="time">00:00.000</span>
+        </div>
+    </div>
+    <div class="game-container">
+        <!-- Сетка игры -->
+        <div class="grid-container">
+            <div class="grid"></div>
+        </div>
+        <!-- Блок Block Times -->
+        <div id="block-times" class="block-times hidden">
+            <h3>Block Times</h3>
+            <div id="block-times-list"></div>
+        </div>
+    </div>
+    <p class="instructions">
+        Join the numbers and get to the <strong>2048 tile!</strong>
+    </p>
+    <div id="volume-controls">
+        <label for="music-volume2">Music Volume</label>
+        <input type="range" id="music-volume2" min="0" max="1" step="0.01" value="1">
+
+        <label for="sound-volume">Sound Volume</label>
+        <input type="range" id="sound-volume2" min="0" max="1" step="0.01" value="1">
+    </div>
+</div>
+
+    <!-- Окно лучших результатов (изначально скрыто) -->
+    <div id="best-results-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Best Results</h2>
+            <div id="best-results-list"></div>
+            <button id="close-modal">Close</button>
+        </div>
+    </div>
+
+    <!-- Окно рейтинга -->
+<div id="rating-modal" class="modal hidden">
+    <div class="modal-content" style="width: 500px;">
+        <h2>🏆 Leaderboard</h2>
+        
+        <!-- Вкладки -->
+        <div class="rating-tabs">
+            <button class="rating-tab active" data-mode="classic">Classic</button>
+            <button class="rating-tab" data-mode="speedrun">Speedrun</button>
+            <button class="rating-tab" data-mode="blocks">Block Times</button>
+        </div>
+        
+        <!-- Контент вкладок -->
+        <div id="rating-content">
+            <!-- Заполняется JavaScript -->
+        </div>
+        
+        <!-- Пагинация -->
+        <div class="rating-pagination">
+            <button id="prev-page">⬅</button>
+            <span id="page-info">Page 1</span>
+            <button id="next-page">➡</button>
+        </div>
+        
+        <button id="close-rating-modal" class="modal-close-btn">Close</button>
+    </div>
+</div>
+<canvas id="rating-chart" width="400" height="200"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
