@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
 const app = express();
-const port = 5432;
+const port = 3306;
 
 // Middleware
 app.use(helmet());
