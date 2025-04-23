@@ -15,7 +15,7 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
-    origin: '2048-on-host.vercel.app',
+    origin: 'https://2048-on-host.vercel.app',
   }));
 
 // Rate limiting
