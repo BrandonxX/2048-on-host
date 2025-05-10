@@ -1,5 +1,5 @@
 // Конфигурация
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://2048-on-host-lpyg.vercel.app/api';
 const GRID_SIZE = 4;
 const TILE_COLORS = {
     2: '#eee4da',

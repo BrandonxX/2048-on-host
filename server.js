@@ -8,17 +8,15 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = 3306;
 
 // Middleware
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-}));
+    origin: 'https://2048-on-host-lpyg.vercel.app',
+  }));
 
 // Rate limiting
 const limiter = rateLimit({
@@ -29,10 +27,10 @@ app.use(limiter);
 
 // Database connection pool
 const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || 'root',
-    database: process.env.DB_NAME || 'mydatabase',
+    host: 'b622mnjwsv8bswa9rt3b-mysql.services.clever-cloud.com',
+    user: 'uarcqgq9m6jbivgu',
+    password: 'JgcRa2CQsYAgvTjVmPPj',
+    database: 'b622mnjwsv8bswa9rt3b',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
